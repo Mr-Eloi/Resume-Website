@@ -7,10 +7,17 @@ burger.onclick = () => {
 };
 
 // Close nav on link click
-document.querySelectorAll("#nav-links a").forEach(link => {
+document.querySelectorAll("#nav-links a").forEach((link) => {
   link.addEventListener("click", () => {
     navLinks.classList.remove("show");
   });
+});
+
+//close nav on outside click
+document.addEventListener("click", (e) => {
+  if (!navLinks.contains(e.target) && !burger.contains(e.target)) {
+    navLinks.classList.remove("show");
+  }
 });
 
 // Contact form validation
@@ -25,7 +32,7 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
     return;
   }
 
-  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     alert("Invalid email format.");
     return;
@@ -35,60 +42,33 @@ document.getElementById("contactForm").addEventListener("submit", function (e) {
   this.reset();
 });
 
-//Projects
-const projects = [
-  {
-    title: "Endlesss Runner",
-    description: "A 3D endless runner game with obstacles.",
-    link: "https://eloxpro.itch.io/3d-runner-demo"
-  },
-  {
-    title: "Team Showcase",
-    description: "A portfolio site for showcasing group projects and skills.",
-    link: "https://teamshowcase.example.com"
-  },
-  {
-    title: "Mini E-commerce",
-    description: "A basic online store using MERN stack with cart and checkout.",
-    link: "https://ecom-mini.example.com"
-  },
-  {
-    title: "GameHub",
-    description: "A multiplayer game room with real-time leaderboard.",
-    link: "https://gamehub.example.com"
-  },
-  {
-    title: "Portfolio Website",
-    description: "Personal portfolio showcasing dev and design skills.",
-    link: "https://elox.vercel.app"
-  },
-  {
-    title: "AI Chat UI",
-    description: "Frontend clone of ChatGPT interface using Next.js & Tailwind.",
-    link: "https://aichatui.example.com"
-  },
-  {
-    title: "3D Interactive Landing Page",
-    description: "Three.js-powered landing page with scroll animations.",
-    link: "https://3dlanding.example.com"
-  }
-];
-
-// Render project cards
-function loadProjects() {
+// Fetch and Render projects in Cards
+async function loadProjects() {
   const container = document.getElementById("project-list");
+  container.textContent = "Loading projects...";
 
-  container.innerHTML = projects
-    .map(
-      (p) => `
+  try {
+    const res = await fetch(
+      "https://projects-list-api.onrender.com/api/projects"
+    );
+    const data = (await res.json()) || [];
+    console.log("Fetching projects from API...", data);
+    container.innerHTML = data
+      .map(
+        (p) => `
       <div class="project-card">
-        <h3>${p.title}</h3>
+        <img src="${p.img || "/logo.png"}" alt="${p.name}">
+        <h3>${p.name}</h3>
         <p>${p.description}</p>
-        <a href="${p.link}" target="_blank">View Project</a>
+        <a href="${p.url}" target="_blank">View Project</a>
       </div>
     `
-    )
-    .join("");
+      )
+      .join("");
+  } catch (err) {
+    container.textContent = "Failed to load projects.";
+    console.error("Error loading TRPC projects:", err);
+  }
 }
 
 loadProjects();

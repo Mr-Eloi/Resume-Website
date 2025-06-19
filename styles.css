@@ -1,3 +1,4 @@
+/* === Base Styles === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,8 +16,21 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   line-height: 1.6;
+  animation: fadeInBody 1s ease-in;
 }
 
+@keyframes fadeInBody {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Navbar === */
 nav {
   display: flex;
   background: #222;
@@ -30,6 +44,7 @@ nav {
   align-items: center;
   padding: 1rem;
   margin: 0 auto;
+  transition: background 0.4s ease;
 }
 
 #logo img {
@@ -47,10 +62,12 @@ nav {
 #nav-links li a {
   color: #603ef5;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 #nav-links li a:hover {
   border-bottom: 2px solid #fd3fe0;
+  color: #fd3fe0;
 }
 
 #burger {
@@ -58,21 +75,49 @@ nav {
   display: none;
   font-size: 2em;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
 #burger:hover {
   color: #fd3fe0;
 }
 
+/* === Sections === */
 .section {
   padding: 3em 1em;
+  animation: fadeInSection 0.8s ease-in;
+  transition: all 0.5s;
 }
 
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Home === */
 #portrait {
   width: 30%;
   display: block;
   margin: 0 auto;
   padding: 2em;
+  animation: floatIn 1.2s ease-out;
+}
+
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 #home {
@@ -88,8 +133,10 @@ nav {
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  animation: fadeInBody 1s ease-in 0.3s;
 }
 
+/* === Skills === */
 .skills-container {
   display: flex;
   flex-wrap: wrap;
@@ -97,18 +144,30 @@ nav {
   gap: 2rem;
   width: 80%;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 1s forwards 0.5s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .skills-container div {
   flex: 1;
   min-width: 300px;
 }
+
 .skills-container ul {
-    padding-left: 0.5em;
-    font-size: 14px;
-    text-wrap: balance;
+  padding-left: 0.5em;
+  font-size: 14px;
+  text-wrap: balance;
 }
 
+/* === Headings === */
 h2 {
   color: #603ef5;
   font-size: 2em;
@@ -127,6 +186,7 @@ ul {
   margin-top: 0.5em;
 }
 
+/* === Form === */
 form input,
 form textarea {
   width: 100%;
@@ -136,6 +196,14 @@ form textarea {
   border: 1px solid #603ef5;
   color: #a1a1a1;
   border-radius: 5px;
+  transition: border 0.3s, background 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #fd3fe0;
+  background: #1a1a1a;
+  outline: none;
 }
 
 form button {
@@ -145,13 +213,14 @@ form button {
   color: white;
   cursor: pointer;
   border-radius: 5px;
-  transition: background 0.3s;
+  transition: background 0.3s ease-in-out;
 }
 
 form button:hover {
   background: #fd3fe0;
 }
 
+/* === Contact === */
 .contact-container {
   display: flex;
   flex-wrap: wrap;
@@ -169,20 +238,18 @@ form button:hover {
 .contact-info a {
   color: #603ef5;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
+.contact-info a:hover {
+  color: #fd3fe0;
+}
+
+/* === Projects === */
 #project-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
-}
-
-#education-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  font-size: 14px;
-  margin-bottom: 2rem;
 }
 
 .project-card {
@@ -190,16 +257,47 @@ form button:hover {
   border: 1px solid #603ef5;
   padding: 1em;
   border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(96, 62, 245, 0.4);
 }
 
 .project-card h3 {
   color: #fd3fe0;
+  text-transform: capitalize;
 }
 
 .project-card a {
   color: #603ef5;
+  text-decoration: none;
+  transition: color 0.3s;
+  margin-top: 0.5em;
 }
 
+.project-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.project-card a:hover {
+  color: #fd3fe0;
+}
+
+/* === Education === */
+#education-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  font-size: 14px;
+  margin-bottom: 2rem;
+  animation: fadeUp 1s ease forwards;
+}
+
+/* === Footer === */
 footer {
   border-top: 1px solid #603ef5;
   color: #a1a1a1;
@@ -213,12 +311,14 @@ footer a {
   color: #603ef5;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s;
 }
+
 footer a:hover {
   color: #fd3fe0;
 }
 
-/* Responsive */
+/* === Responsive === */
 @media (max-width: 768px) {
   #nav-links {
     display: none;
