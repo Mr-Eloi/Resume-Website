@@ -57,17 +57,46 @@ nav {
   display: flex;
   list-style: none;
   gap: 1.5em;
+  margin: 0;
 }
 
-#nav-links li a {
+#nav-links li {
+  opacity: 0;
+  animation: navFade 0.5s ease forwards;
+}
+
+@keyframes navFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-link {
   color: #603ef5;
   text-decoration: none;
-  transition: color 0.3s;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
 }
 
-#nav-links li a:hover {
-  border-bottom: 2px solid #fd3fe0;
-  color: #fd3fe0;
+.nav-link:hover {
+    color: #fd3fe0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #603ef5;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 #burger {
@@ -325,7 +354,7 @@ footer a:hover {
     flex-direction: column;
     background: #222;
     position: absolute;
-    top: 40px;
+    top: 60px;
     right: 0;
     width: 100%;
     padding: 1em;
