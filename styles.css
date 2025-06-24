@@ -1,3 +1,26 @@
+/* === Theme Variables === */
+:root {
+  --bg-color: #111;
+  --text-color: #878686;
+  --accent-color: #603ef5;
+  --highlight-color: #fd3fe0;
+  --card-bg: #1e1e1e;
+  --form-bg: #1e1e1e;
+  --nav-bg: #222;
+  --footer-bg: #222;
+}
+
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #111;
+  --accent-color: #603ef5;
+  --highlight-color: #fd3fe0;
+  --card-bg: #f0f0f0;
+  --form-bg: #fefefe;
+  --nav-bg: #d6d5d5;
+  --footer-bg: #d6d5d5;
+}
+
 /* === Base Styles === */
 * {
   box-sizing: border-box;
@@ -6,13 +29,15 @@
 
 html {
   scroll-behavior: smooth;
-  background: #603ef5;
+  background: var(--nav-bg);
 }
 
 body {
   font-family: sans-serif;
-  background: #111;
-  color: #878686;
+  background: var(--bg-color);
+  border-right: 1px solid var(--accent-color);
+  border-left: 1px solid var(--accent-color);
+  color: var(--text-color);
   max-width: 1000px;
   margin: 0 auto;
   line-height: 1.6;
@@ -33,7 +58,8 @@ body {
 /* === Navbar === */
 nav {
   display: flex;
-  background: #222;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--accent-color);
   height: 60px;
   position: fixed;
   top: 0;
@@ -73,34 +99,44 @@ nav {
 }
 
 .nav-link {
-  color: #603ef5;
+  color: var(--accent-color);
   text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
 }
 
 .nav-link:hover {
-    color: #fd3fe0;
+  color: var(--highlight-color);
 }
 
 .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: #603ef5;
-    transition: width 0.3s ease;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
+.nav-link.active-link {
+  color: var(--highlight-color);
+  font-weight: 700;
+}
+
+.nav-link.active-link::after {
+  width: 100%;
+}
+
+
 #burger {
-  color: #603ef5;
+  color: var(--accent-color);
   display: none;
   font-size: 2em;
   cursor: pointer;
@@ -108,7 +144,22 @@ nav {
 }
 
 #burger:hover {
-  color: #fd3fe0;
+  color: var(--highlight-color);
+}
+
+#themeToggle {
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-left: 1em;
+  color: var(--accent-color);
+  transition: transform 0.3s, color 0.3s;
+}
+
+#themeToggle:hover {
+  transform: rotate(20deg);
+  color: var(--highlight-color);
 }
 
 /* === Sections === */
@@ -198,15 +249,15 @@ nav {
 
 /* === Headings === */
 h2 {
-  color: #603ef5;
+  color: var(--accent-color);
   font-size: 2em;
-  border-bottom: 1px solid #fd3fe0;
+  border-bottom: 1px solid var(--highlight-color);
   margin-bottom: 2rem;
 }
 
 h3,
 strong {
-  color: #fd3fe0;
+  color: var(--highlight-color);
   margin-bottom: 0.5em;
 }
 
@@ -221,22 +272,22 @@ form textarea {
   width: 100%;
   padding: 0.8em;
   margin-bottom: 1em;
-  background: #1e1e1e;
-  border: 1px solid #603ef5;
-  color: #a1a1a1;
+  background: var(--form-bg);
+  border: 1px solid var(--accent-color);
+  color: var(--text-color);
   border-radius: 5px;
   transition: border 0.3s, background 0.3s;
 }
 
 form input:focus,
 form textarea:focus {
-  border-color: #fd3fe0;
-  background: #1a1a1a;
+  border-color: var(--highlight-color);
+  background: var(--form-bg);
   outline: none;
 }
 
 form button {
-  background: #603ef5;
+  background: var(--accent-color);
   border: none;
   padding: 0.8em;
   color: white;
@@ -246,7 +297,7 @@ form button {
 }
 
 form button:hover {
-  background: #fd3fe0;
+  background: var(--highlight-color);
 }
 
 /* === Contact === */
@@ -265,13 +316,13 @@ form button:hover {
 }
 
 .contact-info a {
-  color: #603ef5;
+  color: var(--accent-color);
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .contact-info a:hover {
-  color: #fd3fe0;
+  color: var(--highlight-color);
 }
 
 /* === Projects === */
@@ -282,8 +333,8 @@ form button:hover {
 }
 
 .project-card {
-  background: #1e1e1e;
-  border: 1px solid #603ef5;
+  background: var(--card-bg);
+  border: 1px solid var(--accent-color);
   padding: 1em;
   border-radius: 5px;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -295,12 +346,12 @@ form button:hover {
 }
 
 .project-card h3 {
-  color: #fd3fe0;
+  color: var(--highlight-color);
   text-transform: capitalize;
 }
 
 .project-card a {
-  color: #603ef5;
+  color: var(--accent-color);
   text-decoration: none;
   transition: color 0.3s;
   margin-top: 0.5em;
@@ -313,7 +364,7 @@ form button:hover {
 }
 
 .project-card a:hover {
-  color: #fd3fe0;
+  color: var(--highlight-color);
 }
 
 /* === Education === */
@@ -328,23 +379,23 @@ form button:hover {
 
 /* === Footer === */
 footer {
-  border-top: 1px solid #603ef5;
-  color: #a1a1a1;
+  border-top: 1px solid var(--accent-color);
+  color: var(--text-color);
   text-align: center;
   padding: 0.5em 0;
   font-size: 14px;
-  background: #222;
+  background: var(--footer-bg);
 }
 
 footer a {
-  color: #603ef5;
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s;
 }
 
 footer a:hover {
-  color: #fd3fe0;
+  color: var(--highlight-color);
 }
 
 /* === Responsive === */
@@ -352,7 +403,7 @@ footer a:hover {
   #nav-links {
     display: none;
     flex-direction: column;
-    background: #222;
+    background: var(--nav-bg);
     position: absolute;
     top: 60px;
     right: 0;
@@ -378,3 +429,4 @@ footer a:hover {
     width: 100%;
   }
 }
+

@@ -72,3 +72,55 @@ async function loadProjects() {
 }
 
 loadProjects();
+
+// Theme toggle functionality
+const themeToggle = document.getElementById("themeToggle");
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme) {
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  themeToggle.textContent = currentTheme === "dark" ? "🌙" : "☀️";
+} else {
+  document.documentElement.setAttribute("data-theme", "dark"); // default
+}
+
+themeToggle.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+  themeToggle.textContent = next === "dark" ? "🌙" : "☀️";
+});
+
+// Activate link on scroll
+const sections = document.querySelectorAll("section");
+const navLinksList = document.querySelectorAll(".nav-link");
+
+function activateLinkOnScroll() {
+  let scrollY = window.scrollY;
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute("id");
+
+    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      navLinksList.forEach((link) => {
+        link.classList.remove("active-link");
+        if (link.getAttribute("href") === `#${sectionId}`) {
+          link.classList.add("active-link");
+        }
+      });
+    }
+    else if (sectionId === "contact" && scrollY + window.innerHeight >= document.body.scrollHeight - 100) {
+      navLinksList.forEach((link) => {
+        link.classList.remove("active-link");
+        if (link.getAttribute("href") === `#${sectionId}`) {
+          link.classList.add("active-link");
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener("scroll", activateLinkOnScroll);
